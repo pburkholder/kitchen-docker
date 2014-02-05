@@ -112,7 +112,7 @@ module Kitchen
         password = config[:password]
         base = <<-eos
           RUN mkdir -p /var/run/sshd
-          RUN useradd -d /home/#{username} -m -s /bin/bash #{username}
+          RUN test -d /home/#{username} || useradd -d /home/#{username} -m -s /bin/bash #{username}
           RUN echo #{username}:#{password} | chpasswd
           RUN echo '#{username} ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
         eos
